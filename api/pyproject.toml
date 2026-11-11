@@ -4,10 +4,11 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 authors = [
-    { name = "Rizwan", email = "rizwanse66@gmail.com" }
+    { name = "Ayesha", email = "ayeshanasir2737@gmail.com" }
 ]
 requires-python = ">=3.13"
 dependencies = [
+    "fastapi[standard]>=0.162.3",
     "langchain>=1.4.9",
     "langchain-community>=0.4.2",
     "langchain-core>=1.7.6",

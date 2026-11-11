@@ -155,7 +155,7 @@ from langchain.chat_models import init_chat_model
 from langchain_qdrant import QdrantVectorStore
 from pydantic import BaseModel, Field
 
-from core.config import (
+from app.core.config import (
     get_settings,
     get_qdrant_client,
     get_embeddings,
