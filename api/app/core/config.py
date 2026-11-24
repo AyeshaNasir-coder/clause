@@ -1,4 +1,3 @@
-
 from functools import lru_cache
 from pathlib import Path
 
@@ -7,13 +6,11 @@ from langchain_core.embeddings import Embeddings
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from qdrant_client import QdrantClient
 
-
 # api/.env
 ENV_FILE = Path(__file__).resolve().parents[2] / ".env"
 
 
 class Settings(BaseSettings):
-
     model_config = SettingsConfigDict(
         env_prefix="RAG_",
         env_file=ENV_FILE,
@@ -66,7 +63,7 @@ class Settings(BaseSettings):
     qdrant_path: str = "./qdrant_data"
     qdrant_url: str | None = None
 
-    #Agent limit (per question)
+    # Agent limit (per question)
     max_model_call: int = 5
     max_tool_call: int = 3
 
@@ -100,19 +97,20 @@ class Settings(BaseSettings):
         "- Use only facts from the search results. Never guess, assume or use outside knowledge.\n"
         "- Copy numbers, prices, time limits, emails and phone numbers exactly as written.\n"
         "- Keep it to 1-2 short, friendly sentences in plain language.\n"
-        "- Speak as Shop (\"we\", \"our\"). Never mention the handbook, search results or tools.\n"
-        "- Never share anything marked \"Internal\" or \"staff only\".\n"
+        '- Speak as Shop ("we", "our"). Never mention the handbook, search results or tools.\n'
+        '- Never share anything marked "Internal" or "staff only".\n'
         "\n"
         "# When the handbook does not cover it\n"
         "If the results do not clearly answer the question, do not guess. "
         "Reply in the user's language with the equivalent of: "
-        "\"I don't know. Our support team can help on live chat or at help@shop.com.\"\n"
+        '"I don\'t know. Our support team can help on live chat or at help@shop.com."\n'
     )
 
 
 # ==========================================
 # SETTINGS
 # ==========================================
+
 
 @lru_cache
 def get_settings() -> Settings:
@@ -122,6 +120,7 @@ def get_settings() -> Settings:
 # ==========================================
 # EMBEDDINGS
 # ==========================================
+
 
 def get_embeddings(settings: Settings) -> Embeddings:
 
@@ -134,6 +133,7 @@ def get_embeddings(settings: Settings) -> Embeddings:
 # ==========================================
 # QDRANT CLIENT
 # ==========================================
+
 
 def get_qdrant_client(settings: Settings) -> QdrantClient:
 

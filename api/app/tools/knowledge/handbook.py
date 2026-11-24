@@ -1,7 +1,5 @@
-
 from langchain.tools import tool
 from langchain_qdrant import QdrantVectorStore
-
 
 
 def file_search(store: QdrantVectorStore, top_k: int):
@@ -20,16 +18,16 @@ def file_search(store: QdrantVectorStore, top_k: int):
         if not results:
             return "Nothing found.", []
 
-        text = "\n\n".join(doc.page_content for doc, _ in results) #string object 
+        text = "\n\n".join(doc.page_content for doc, _ in results)  # string object
         sources = [
             Source(
                 source=doc.metadata.get("source", "unknown"),
                 page=doc.metadata.get("page"),
-                score=round(number=score, ndigits=4)
+                score=round(number=score, ndigits=4),
             )
             for doc, score in results
         ]
-        return text,sources
+        return text, sources
 
     return search_handbook
     #     for doc, score in results:
@@ -46,5 +44,3 @@ def file_search(store: QdrantVectorStore, top_k: int):
     #     return combined_text, sources
 
     # return search_handbook
-
-   

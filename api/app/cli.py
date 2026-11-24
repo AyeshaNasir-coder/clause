@@ -1,5 +1,5 @@
-
 from app.services.agent import ClauseAgent
+
 
 def main():
     clause_agent = ClauseAgent()
@@ -15,11 +15,5 @@ def main():
         clause_agent.close()
 
 
-
-
 if __name__ == "__main__":
     main()
-
-
-
-

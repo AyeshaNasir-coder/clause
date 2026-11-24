@@ -1,10 +1,18 @@
 # api/evals/run.py
 # Run from api/:  uv run python -m evals.run
 import json
+
 from app.services.chat import RAGService
 
-REFUSALS = ["don't know", "do not know", "not mention", "doesn't mention",
-            "doesn't cover", "does not cover", "no information"]
+REFUSALS = [
+    "don't know",
+    "do not know",
+    "not mention",
+    "doesn't mention",
+    "doesn't cover",
+    "does not cover",
+    "no information",
+]
 
 
 def clean(text):
@@ -39,7 +47,11 @@ for t in tests:
         fact_found.append(found)
         correct.append(ok)
         passed = ok
-        blame = "generator: the fact WAS in the chunks" if found else "retriever: the fact was NOT in the chunks"
+        blame = (
+            "generator: the fact WAS in the chunks"
+            if found
+            else "retriever: the fact was NOT in the chunks"
+        )
     elif t["type"] == "out_of_scope":
         passed = any(p in answer for p in REFUSALS)
         refused.append(passed)
@@ -51,7 +63,7 @@ for t in tests:
 
     print("✓" if passed else "✗", t["id"])
     if not passed:
-        print("   answer:", result.answer)   # full answer, not cut off
+        print("   answer:", result.answer)  # full answer, not cut off
         print("   blame: ", blame)
 
 rag.close()

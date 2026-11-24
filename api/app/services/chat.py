@@ -26,11 +26,11 @@
 #         self.store = QdrantVectorStore(
 #             client=self.client,
 #             collection_name=self.settings.collection_name,   #collection
-#             embedding=get_embeddings(self.settings), 
+#             embedding=get_embeddings(self.settings),
 #             retrieval_mode=RetrievalMode.HYBRID,
 #             sparse_embedding=FastEmbedSparse(model_name="Qdrant/bm25"),
 #             vector_name="dense",
-#             sparse_vector_name="sparse"   
+#             sparse_vector_name="sparse"
 #         )
 
 #         #llm
@@ -41,40 +41,40 @@
 #             # temperature=self.settings.chat_temperature,
 #         )
 
-    # def ask(self, question: str) -> Answer:
-    #     question = question.strip()
-    #     if not question:
-    #         raise ValueError("Question must be not empty")
+# def ask(self, question: str) -> Answer:
+#     question = question.strip()
+#     if not question:
+#         raise ValueError("Question must be not empty")
 
-    #     results = self.store.similarity_search_with_score(
-    #         query=question,
-    #         k=self.settings.top_k,
-    #         score_threshold=self.settings.score_threshold
-    #     )
+#     results = self.store.similarity_search_with_score(
+#         query=question,
+#         k=self.settings.top_k,
+#         score_threshold=self.settings.score_threshold
+#     )
 
-    #     if not results:
-    #         return Answer(answer=NO_ANSWER, sources=[])
+#     if not results:
+#         return Answer(answer=NO_ANSWER, sources=[])
 
-    #     context = "\n\n".join(doc.page_content for doc, _ in results)
-    #     messages = [
-    #         {"role": "system", "content": self.settings.system_prompt},
-    #         {"role": "user", "content": f"Handbok text:\n{context}\n\nCustomer question:\n{question}"},
-    #     ]
+#     context = "\n\n".join(doc.page_content for doc, _ in results)
+#     messages = [
+#         {"role": "system", "content": self.settings.system_prompt},
+#         {"role": "user", "content": f"Handbok text:\n{context}\n\nCustomer question:\n{question}"},
+#     ]
 
-    #     return Answer(
-    #         answer = self.llm.invoke(messages).text,
-    #         sources =[
-    #             Source(
-    #                 source = doc.metadata.get("source", "unknown"),
-    #                 page = doc.metadata.get("page", None),
-    #                 score = round(score, 4),
-    #             )
-    #             for doc, score in results
-    #         ]
-    #     )
+#     return Answer(
+#         answer = self.llm.invoke(messages).text,
+#         sources =[
+#             Source(
+#                 source = doc.metadata.get("source", "unknown"),
+#                 page = doc.metadata.get("page", None),
+#                 score = round(score, 4),
+#             )
+#             for doc, score in results
+#         ]
+#     )
 
-    # def close(self) -> None:
-    #     self.client.close()
+# def close(self) -> None:
+#     self.client.close()
 
 
 # def main():

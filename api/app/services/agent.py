@@ -60,14 +60,14 @@
 
 from langchain.agents import create_agent
 from langchain.messages import HumanMessage
-# from langchain.tools import tool
 
+# from langchain.tools import tool
 from app.core.config import get_settings
-from app.prompts.loader import get_prompt
 from app.llm.models import get_chat_model
+from app.middleware.stacks import default_stack
+from app.prompts.loader import get_prompt
 from app.rag.vectorstore import get_vector_store
 from app.tools.knowledge.handbook import file_search
-from app.middleware.stacks import default_stack
 
 
 class ClauseAgent:
@@ -112,13 +112,10 @@ class ClauseAgent:
                 version=self.settings.system_prompt_version,
             ),
             middleware=default_stack(self.settings),
-
         )
 
     def ask(self, question: str) -> str:
-        result = self.agent.invoke({
-            "messages": [HumanMessage(content=question)]
-        })
+        result = self.agent.invoke({"messages": [HumanMessage(content=question)]})
 
         messages = result["messages"]
         return messages[-1].text
@@ -126,10 +123,3 @@ class ClauseAgent:
     def close(self) -> None:
         if hasattr(self, "store") and self.store is not None:
             self.store.client.close()
-
-
-
-
-            
-
-        
